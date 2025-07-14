@@ -16,6 +16,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/medicines', require('./routes/medicineRoutes'));
+app.use('/api/doctors', require('./routes/doctorRoutes'));
 
 // Root route
 app.get('/', (req, res) => {
