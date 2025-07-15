@@ -5,7 +5,7 @@ exports.uploadNgo = async (req, res) => {
     const { organizationname, registrationno, website, cause } = req.body;
 
     const newNgo = await Ngo.create({
-      user: req.user._id, // must come from authentication middleware
+      user: req.user ? req.user._id : null,
       organizationname,
       registrationno,
       website,
