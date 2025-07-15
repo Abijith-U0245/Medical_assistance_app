@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/db'); // 👈 Connect MongoDB
 
 dotenv.config(); // Load .env variables
+console.log("📦 Loaded MONGO_URI:", process.env.MONGO_URI);
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use('/api/medicines', require('./routes/medicineRoutes'));
 app.use('/api/doctors', require('./routes/doctorRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
+app.use('/api/Ngos', require('./routes/NgoRoutes'));
 // Root route
 app.get('/', (req, res) => {
   res.send('🚀 API is running...');

@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const ngoSchema = new mongoose.Schema({
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false },
     organizationname: { type: String, required: true },
     registrationno: { type: String, required: true, unique: true },
     approved: { type: Boolean, default: false },
