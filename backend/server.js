@@ -1,17 +1,18 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const connectDB = require('./config/db'); // 👈 Connect MongoDB
+const connectDB = require('./config/db');
 
-dotenv.config(); // Load .env variables
+// Load environment variables
+dotenv.config();
 console.log("📦 Loaded MONGO_URI:", process.env.MONGO_URI);
 
 const app = express();
 
 // Connect to MongoDB
-connectDB(); // 👈 Important!
+connectDB();
 
-// Middleware
+// Global Middleware
 app.use(cors());
 app.use(express.json());
 
@@ -19,7 +20,10 @@ app.use(express.json());
 app.use('/api/medicines', require('./routes/medicineRoutes'));
 app.use('/api/doctors', require('./routes/doctorRoutes'));
 app.use('/api/users', require('./routes/userRoutes'));
-app.use('/api/Ngos', require('./routes/NgoRoutes'));
+app.use('/api/ngos', require('./routes/ngoRoutes')); // ⬅️ lowercase 'ngos'
+app.use('/api/pharmacies', require('./routes/pharmacyRoutes')); // ⬅️ add pharmacy routes
+app.use('/api/hospitals', require('./routes/hospitalRoutes'))
+
 // Root route
 app.get('/', (req, res) => {
   res.send('🚀 API is running...');
