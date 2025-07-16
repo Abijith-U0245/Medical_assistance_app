@@ -1,16 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoginAdmin from './pages/Login/LoginAdmin.jsx'; // Adjust path if needed
-import RoleSelect from './pages/Login/RoleSelect'; // Optional: your role picker
+import LoginAdmin from './components/LoginAdmin.jsx';
+import RoleSelect from './components/RoleSelect.jsx';
 import './App.css';
-
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<RoleSelect />} /> {/* optional home */}
+        <Route path="/" element={<RoleSelect />} />
         <Route path="/login/admin" element={<LoginAdmin />} />
-        {/* Add other routes here later */}
+        {/* Add more routes like doctor, hospital, etc. here later */}
       </Routes>
     </Router>
   );
