@@ -1,0 +1,77 @@
+.ngo-dashboard {
+    padding: 2rem;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f9fafa;
+    min-height: 100vh;
+    position: relative;
+  }
+  
+  .dashboard-header {
+    margin-bottom: 2rem;
+  }
+  
+  .dashboard-header h1 {
+    font-size: 2rem;
+    color: #2c3e50;
+  }
+  
+  .dashboard-header p {
+    color: #555;
+  }
+  
+  .dashboard-stats {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .card {
+    background: white;
+    padding: 1.2rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .card h2 {
+    margin-bottom: 0.5rem;
+    color: #34495e;
+  }
+  
+  .card p {
+    font-size: 1.5rem;
+    color: #2ecc71;
+  }
+  
+  .dashboard-tasks h2 {
+    margin-bottom: 0.8rem;
+    color: #2c3e50;
+  }
+  
+  .dashboard-tasks ul {
+    padding-left: 1rem;
+    list-style-type: square;
+    color: #444;
+  }
+  
+  .chatbot-button {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 0.9rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background 0.3s;
+    z-index: 1000;
+  }
+  
+  .chatbot-button:hover {
+    background-color: #2980b9;
+  }
+  

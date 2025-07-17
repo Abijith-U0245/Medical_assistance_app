@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
-import { loginUser } from '../../services/authService';
 
 const LoginAdmin = () => {
   const navigate = useNavigate();
@@ -14,48 +13,22 @@ const LoginAdmin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await loginUser(formData);
-      const user = res.data;
-
-      if (user.role !== 'admin') {
-        setError('Access denied: Not an admin');
-        return;
-      }
-
-      localStorage.setItem('token', user.token);
-      localStorage.setItem('user', JSON.stringify(user));
-      navigate('/admin/dashboard');
-    } catch (err) {
-      console.error(err);
-      setError('Invalid email or password');
+    // simulate login
+    if (formData.email === "admin@example.com" && formData.password === "admin") {
+      navigate("/admin/dashboard");
+    } else {
+      setError("Invalid credentials");
     }
   };
 
   return (
-    <div className="login-container">
+    <div>
       <h2>Admin Login</h2>
-      <form onSubmit={handleSubmit} className="login-form">
-        <input
-          type="email"
-          name="email"
-          placeholder="Admin Email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-          className="login-input"
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-          className="login-input"
-        />
-        <button type="submit" className="login-button">Login</button>
-        {error && <p className="login-error">{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <input type="email" name="email" placeholder="Email" onChange={handleChange} />
+        <input type="password" name="password" placeholder="Password" onChange={handleChange} />
+        <button type="submit">Login</button>
+        {error && <p style={{ color: "red" }}>{error}</p>}
       </form>
     </div>
   );
