@@ -23,6 +23,7 @@ app.use('/api/users', require('./routes/userRoutes'));
 app.use('/api/ngos', require('./routes/ngoRoutes')); // ⬅️ lowercase 'ngos'
 app.use('/api/pharmacies', require('./routes/pharmacyRoutes')); // ⬅️ add pharmacy routes
 app.use('/api/hospitals', require('./routes/hospitalRoutes'))
+app.use('/api/admin', require('./routes/adminRoutes'));
 
 // Root route
 app.get('/', (req, res) => {
