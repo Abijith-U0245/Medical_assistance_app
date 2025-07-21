@@ -17,13 +17,13 @@ const userSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: ['medicine', 'doctor', 'patient', 'NGO'],
-        default: 'patient',
+        enum: ['admin', 'doctor', 'hospital', 'pharmacy', 'ngo', 'public'],
+        default: 'public',
     },
     location: {
         city: String,
         coordinates: {
-            type: [Number], // [longitude, latitude]
+            type: [Number], 
             default: [0, 0]
         }
     },

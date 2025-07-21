@@ -7,7 +7,11 @@ const medicineSchema = new mongoose.Schema({
     quantity: { type: Number, required: true },
     type: { type: String }, // e.g., Tablet, Syrup
     location: { type: String },
-    donatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    donatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Logged in user
+    donorInfo: {               // ✅ For public / unregistered donors
+        name: String,
+        contact: String
+    },
     isVerified: { type: Boolean, default: false },
     distributedTo: [{
         ngo: { type: mongoose.Schema.Types.ObjectId, ref: 'NGO' },

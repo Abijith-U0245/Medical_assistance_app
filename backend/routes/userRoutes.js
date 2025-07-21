@@ -3,9 +3,10 @@ const router = express.Router();
 const userController = require('../controllers/userController');
 const { protect } = require('../middleware/authMiddleware');
 
-router.post('/register', userController.registerUser);
 router.post('/login', userController.loginUser);
-router.get('/profile', protect, userController.getUserProfile);
-router.put('/sos', protect, userController.toggleSOS);
+router.get('/medicine-dashboard', userController.getPublicMedicineDashboard);
+router.post('/donate-medicine', userController.publicDonateMedicine);
+router.post('/chatbot', userController.chatbotQuery);
+router.post('/toggle-sos', protect, userController.toggleSOS);
 
 module.exports = router;
