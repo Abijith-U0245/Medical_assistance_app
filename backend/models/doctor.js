@@ -7,9 +7,24 @@ const doctorSchema = new mongoose.Schema({
     specialization: { type: String, required: true },
     qualification: { type: String, required: true },
     availability: { type: Boolean, default: true },
+
+    // ✅ Added: Profile image URL or path
+    profileImage: { type: String, default: '/default-profile.png' },
+
+    // ✅ Optional: Invitations as embedded documents or references
+    invitations: [
+        {
+            from: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // or Hospital
+            message: String,
+            status: { type: String, enum: ['pending', 'accepted', 'rejected'], default: 'pending' },
+            createdAt: { type: Date, default: Date.now }
+        }
+    ],
+
+    // Geo location
     location: {
         type: { type: String, enum: ['Point'], default: 'Point' },
-        coordinates: { type: [Number], required: true }  // [longitude, latitude]
+        coordinates: { type: [Number], required: true } // [longitude, latitude]
     }
 }, { timestamps: true });
 
