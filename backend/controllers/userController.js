@@ -3,13 +3,15 @@ const Medicine = require('../models/medicine');
 const generateToken = require('../utils/generateToken');
 const axios = require('axios');
 
-// 1. Login User
+// Store notifications in memory (simple simulation)
+let notifications = [];
+
+// 1. User Login
 exports.loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     try {
         const user = await User.findOne({ email });
-
         if (user && user.password === password) {
             res.json({
                 _id: user._id,
@@ -21,7 +23,7 @@ exports.loginUser = async (req, res) => {
         } else {
             res.status(401).json({ message: 'Invalid credentials' });
         }
-    } catch (err) {
+    } catch {
         res.status(500).json({ message: 'Login failed' });
     }
 };
@@ -31,7 +33,7 @@ exports.getPublicMedicineDashboard = async (req, res) => {
     try {
         const medicines = await Medicine.find().select('-__v');
         res.json({ success: true, data: medicines });
-    } catch (err) {
+    } catch {
         res.status(500).json({ message: 'Failed to load medicine dashboard' });
     }
 };
@@ -40,7 +42,6 @@ exports.getPublicMedicineDashboard = async (req, res) => {
 exports.publicDonateMedicine = async (req, res) => {
     try {
         const { name, imageUrl, quantity, type, location, donorName, donorContact } = req.body;
-
         const aiResponse = await axios.post('http://127.0.0.1:5001/ocr', { imageUrl });
         const expiryDate = aiResponse.data.expiry_date;
 
@@ -57,33 +58,22 @@ exports.publicDonateMedicine = async (req, res) => {
             location,
             donatedBy: null,
             isVerified: false,
-            donorInfo: {
-                name: donorName,
-                contact: donorContact
-            }
+            donorInfo: { name: donorName, contact: donorContact }
         });
 
         res.status(201).json({ success: true, data: medicine });
-    } catch (err) {
-        console.error(err);
+    } catch {
         res.status(500).json({ message: 'Failed to donate medicine' });
     }
 };
 
-// 4. Chatbot Basic Endpoint
+// 4. Chatbot
 exports.chatbotQuery = (req, res) => {
     const { message } = req.body;
-
     let response = "Sorry, I didn't understand that.";
-
-    if (message.toLowerCase().includes('donate')) {
-        response = "You can donate medicines via the Donate Medicines form!";
-    } else if (message.toLowerCase().includes('expiry')) {
-        response = "Our AI verifies expiry dates from uploaded images.";
-    } else if (message.toLowerCase().includes('dashboard')) {
-        response = "View all available medicines on the Medicine Dashboard.";
-    }
-
+    if (message.toLowerCase().includes('donate')) response = "You can donate medicines via the Donate Medicines form!";
+    else if (message.toLowerCase().includes('expiry')) response = "Our AI verifies expiry dates from uploaded images.";
+    else if (message.toLowerCase().includes('dashboard')) response = "View all available medicines on the Medicine Dashboard.";
     res.json({ response });
 };
 
@@ -92,11 +82,68 @@ exports.toggleSOS = async (req, res) => {
     try {
         const user = await User.findById(req.user._id);
         if (!user) return res.status(404).json({ message: 'User not found' });
-
         user.sosActive = !user.sosActive;
         await user.save();
         res.json({ sosActive: user.sosActive });
-    } catch (err) {
+    } catch {
         res.status(500).json({ message: 'Failed to toggle SOS' });
     }
+};
+
+// 6. Emergency Doctor Request
+exports.emergencyDoctorAlert = async (req, res) => {
+    try {
+        const message = `🚨 Emergency: Patient ${req.user.name} needs assistance!`;
+        notifications.push({ type: 'doctor-alert', message, timestamp: new Date() });
+        res.json({ success: true, message: 'Doctors notified!' });
+    } catch {
+        res.status(500).json({ message: 'Failed to notify doctors' });
+    }
+};
+
+// 7. Ambulance Request
+exports.requestAmbulance = async (req, res) => {
+    try {
+        const message = `🚑 Ambulance requested by ${req.user.name}`;
+        notifications.push({ type: 'ambulance-request', message, timestamp: new Date() });
+        res.json({ success: true, message: 'Nearby hospitals notified for ambulance!' });
+    } catch {
+        res.status(500).json({ message: 'Failed to request ambulance' });
+    }
+};
+
+
+// Get Doctor Notifications
+exports.getDoctorNotifications = async (req, res) => {
+    try {
+        const doctor = await User.findById(req.user._id);
+
+        if (doctor.role !== 'doctor') {
+            return res.status(403).json({ message: 'Access denied' });
+        }
+
+        res.json({ success: true, notifications: doctor.notifications || [] });
+    } catch (err) {
+        res.status(500).json({ message: 'Failed to fetch doctor notifications' });
+    }
+};
+
+// Get Hospital Notifications
+exports.getHospitalNotifications = async (req, res) => {
+    try {
+        const hospital = await User.findById(req.user._id);
+
+        if (hospital.role !== 'hospital') {
+            return res.status(403).json({ message: 'Access denied' });
+        }
+
+        res.json({ success: true, notifications: hospital.notifications || [] });
+    } catch (err) {
+        res.status(500).json({ message: 'Failed to fetch hospital notifications' });
+    }
+};
+
+// 8. Get Notifications
+exports.getUserNotifications = (req, res) => {
+    res.json({ success: true, notifications });
 };

@@ -9,4 +9,9 @@ router.post('/donate-medicine', userController.publicDonateMedicine);
 router.post('/chatbot', userController.chatbotQuery);
 router.post('/toggle-sos', protect, userController.toggleSOS);
 
+// New Emergency / Ambulance / Notifications
+router.post('/emergency-doctor', protect, userController.emergencyDoctorAlert);
+router.post('/request-ambulance', protect, userController.requestAmbulance);
+router.get('/notifications', protect, userController.getUserNotifications);
+
 module.exports = router;
