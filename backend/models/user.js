@@ -27,6 +27,11 @@ const userSchema = new mongoose.Schema({
             default: [0, 0]
         }
     },
+    notifications: [{
+    message: String,
+    date: { type: Date, default: Date.now },
+    read: { type: Boolean, default: false }
+    }],
     sosActive: { type: Boolean, default: false }
 }, { timestamps: true });
 
