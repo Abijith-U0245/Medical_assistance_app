@@ -1,0 +1,158 @@
+.dashboard-container {
+    padding: 2rem;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f8fbff;
+    min-height: 100vh;
+    color: #333;
+  }
+  
+  .profile-bar {
+    background-color: #ffffff;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    margin-bottom: 2rem;
+    border-left: 5px solid #3a8dde;
+  }
+  
+  .profile-bar h2 {
+    margin-top: 0;
+    color: #3a8dde;
+  }
+  
+  .profile-bar p {
+    margin: 4px 0;
+    font-size: 1rem;
+  }
+  
+  .main-dashboard h3 {
+    margin-bottom: 1rem;
+    color: #222;
+  }
+  
+  .request-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .request-table th,
+  .request-table td {
+    text-align: center;
+    padding: 0.75rem;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+  }
+  
+  .request-table th {
+    background-color: #3a8dde;
+    color: #fff;
+  }
+  
+  .request-table td button {
+    margin: 0 5px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+  }
+  
+  .request-table td button:first-child {
+    background-color: #4caf50;
+    color: #fff;
+  }
+  
+  .request-table td button:last-child {
+    background-color: #f44336;
+    color: #fff;
+  }
+  
+  .donate-section {
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+  
+  .donate-section button {
+    background-color: #3a8dde;
+    color: #fff;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .donate-section button:hover {
+    background-color: #1c6dc0;
+  }
+  
+  .donation-form {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-top: 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  }
+  
+  .donation-form h4 {
+    margin-bottom: 1rem;
+    color: #3a8dde;
+  }
+  
+  .donation-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .donation-form label {
+    margin-top: 1rem;
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+  
+  .donation-form input,
+  .donation-form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
+  
+  .donation-form textarea {
+    resize: vertical;
+    height: 80px;
+  }
+  
+  .donation-form button {
+    margin-top: 1.5rem;
+    padding: 10px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .donation-form button[type='submit'] {
+    background-color: #28a745;
+    color: #fff;
+    margin-right: 10px;
+  }
+  
+  .donation-form button[type='button'] {
+    background-color: #ccc;
+    color: #333;
+  }
+  
+  .donation-form button:hover {
+    opacity: 0.9;
+  }
+  
