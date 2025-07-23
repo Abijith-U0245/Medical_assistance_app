@@ -1,0 +1,84 @@
+.nearby-doctors-container {
+    padding: 2rem;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+h2 {
+    text-transform: capitalize;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.filters select {
+    padding: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid #aaa;
+    font-size: 1rem;
+}
+
+.doctor-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.doctor-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #ddd;
+    border-radius: 12px;
+    padding: 1.2rem;
+    background-color: #fdfdfd;
+    transition: 0.3s;
+}
+
+.doctor-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.doctor-info {
+    flex: 1;
+}
+
+.book-now-button {
+    background-color: #28a745;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.book-now-button:hover {
+    background-color: #218838;
+}
+
+.availability {
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.circle {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 6px;
+}
+
+.available {
+    background-color: green;
+}
+
+.not-available {
+    background-color: red;
+}
