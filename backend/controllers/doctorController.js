@@ -138,3 +138,14 @@ exports.postSuggestions = async (req, res) => {
         res.status(500).json({ success: false, message: 'Failed to save suggestions' });
     }
 };
+
+// ✅ Add this final export to fix the missing route handler
+exports.getDoctorNotifications = async (req, res) => {
+    try {
+        // Optional: you can add real logic here, like fetching from a Notification model
+        res.json({ success: true, notifications: [], message: 'No notifications yet.' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ success: false, message: 'Failed to fetch notifications' });
+    }
+};

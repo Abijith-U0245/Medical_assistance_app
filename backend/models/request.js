@@ -1,33 +1,28 @@
 const mongoose = require('mongoose');
 
-const donationSchema = new mongoose.Schema({
+const requestSchema = new mongoose.Schema({
   pharmacy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Pharmacy',
     required: true
   },
-  medicineName: {
+  ngoName: {
     type: String,
-    required: true,
-    trim: true
-  },
-  expiryDate: {
-    type: Date,
     required: true
   },
-  minimumCost: {
-    type: Number,
+  medicine: {
+    type: String,
     required: true
   },
   quantity: {
     type: Number,
     required: true
   },
-  description: {
+  status: {
     type: String,
-    trim: true
+    enum: ['Pending', 'Approved', 'Rejected'],
+    default: 'Pending'
   }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Donation', donationSchema);
-
+module.exports = mongoose.model('Request', requestSchema);
