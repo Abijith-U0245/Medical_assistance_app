@@ -39,7 +39,13 @@ const ngoSchema = new mongoose.Schema({
   approved: {
     type: Boolean,
     default: false
-  }
+  },
+  requestedMedicines: [{
+    medicine: { type: String, required: true },
+    quantity: { type: Number, required: true },
+    location: { type: String },
+    requestedAt: { type: Date, default: Date.now }
+  }]
 }, { timestamps: true });
 
 module.exports = mongoose.model('NGO', ngoSchema);
