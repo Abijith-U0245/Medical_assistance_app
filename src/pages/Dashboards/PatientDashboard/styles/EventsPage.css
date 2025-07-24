@@ -1,0 +1,114 @@
+.events-page {
+    font-family: 'Segoe UI', sans-serif;
+    padding: 2rem;
+    background: linear-gradient(to bottom, #f9f9ff, #e6f0ff);
+    min-height: 100vh;
+}
+
+
+/* Heading */
+
+.events-page h1 {
+    font-size: 2rem;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+
+/* Filters */
+
+.filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.filter-button {
+    padding: 0.6rem 1.2rem;
+    border: 2px solid #3f51b5;
+    background-color: #fff;
+    color: #3f51b5;
+    border-radius: 2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-button:hover,
+.filter-button.active {
+    background-color: #3f51b5;
+    color: #fff;
+}
+
+
+/* Event Cards Grid */
+
+.events-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+
+/* Individual Event Card */
+
+.event-card {
+    background: #ffffff;
+    border-radius: 1.5rem;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+    padding: 1.5rem;
+    position: relative;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.event-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.event-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.event-details {
+    color: #555;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+
+
+/* Interest Icons */
+
+.interest-icons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.interest-icons span {
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.interest-icons .interested {
+    color: green;
+}
+
+.interest-icons .not-interested {
+    color: red;
+}
+
+.interest-icons span:hover {
+    transform: scale(1.3);
+}

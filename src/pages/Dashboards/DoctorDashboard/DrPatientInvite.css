@@ -1,0 +1,38 @@
+/* DrPatientInvite.css */
+.invite-section {
+    background-color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  }
+  
+  .invite-section ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .invite-section li {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .invite-section button {
+    margin-left: 10px;
+    background-color: #646cff;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  
+  .invite-section button:hover {
+    background-color: #4c55cc;
+  }
+  

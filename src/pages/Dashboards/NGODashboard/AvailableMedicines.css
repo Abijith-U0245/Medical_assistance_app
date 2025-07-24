@@ -1,0 +1,42 @@
+/* AvailableMedicines.css */
+
+.available-section {
+  background: white;
+  width: 90%;
+  max-width: 900px;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.available-section h2 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.available-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.available-box {
+  background: #e8f7ff;
+  padding: 1rem;
+  border-radius: 12px;
+  border-left: 5px solid #16a085;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.available-box h3 {
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+}
+
+.available-box ul {
+  padding-left: 1rem;
+  list-style: disc;
+  color: #34495e;
+}
