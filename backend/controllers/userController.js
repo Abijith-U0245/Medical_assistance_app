@@ -68,14 +68,16 @@ exports.publicDonateMedicine = async (req, res) => {
 };
 
 // 4. Chatbot
-exports.chatbotQuery = (req, res) => {
-    const { message } = req.body;
-    let response = "Sorry, I didn't understand that.";
-    if (message.toLowerCase().includes('donate')) response = "You can donate medicines via the Donate Medicines form!";
-    else if (message.toLowerCase().includes('expiry')) response = "Our AI verifies expiry dates from uploaded images.";
-    else if (message.toLowerCase().includes('dashboard')) response = "View all available medicines on the Medicine Dashboard.";
-    res.json({ response });
+exports.chatbotQuery = async (req, res) => {
+  const { message } = req.body;
+  try {
+    const response = await axios.post('http://127.0.0.1:5002/chat', { message });
+    res.json({ response: response.data.response });
+  } catch (error) {
+    res.status(500).json({ message: 'Chatbot service error' });
+  }
 };
+
 
 // 5. SOS Toggle
 exports.toggleSOS = async (req, res) => {
