@@ -2,6 +2,8 @@ const User = require('../models/user');
 const Medicine = require('../models/medicine');
 const generateToken = require('../utils/generateToken');
 const axios = require('axios');
+const FormData = require('form-data');
+const fs = require('fs');
 
 // Store notifications in memory (simple simulation)
 let notifications = [];
@@ -41,28 +43,45 @@ exports.getPublicMedicineDashboard = async (req, res) => {
 // 3. Public Medicine Donation
 exports.publicDonateMedicine = async (req, res) => {
     try {
-        const { name, imageUrl, quantity, type, location, donorName, donorContact } = req.body;
-        const aiResponse = await axios.post('http://127.0.0.1:5001/ocr', { imageUrl });
-        const expiryDate = aiResponse.data.expiry_date;
+        const { name, quantity, type, location, donorName, donorContact } = req.body;
+        const imageFile = req.file;
 
-        if (!expiryDate) {
-            return res.status(400).json({ message: 'AI could not verify expiry from image' });
+        if (!imageFile) {
+            return res.status(400).json({ message: 'Image file is required' });
         }
 
+        // Prepare form data to send to Flask
+        const formData = new FormData();
+        formData.append('image', fs.createReadStream(imageFile.path));
+
+        // Send image to Flask OCR API
+        const flaskResponse = await axios.post('http://127.0.0.1:5001/extract', formData, {
+            headers: formData.getHeaders()
+        });
+
+        const { expiryDate, name: extractedName, rawText } = flaskResponse.data;
+
+        if (!expiryDate) {
+            return res.status(400).json({ message: 'Could not extract expiry date from image' });
+        }
+        const isExpired = new Date(expiryDate) < new Date();
+        const isVerified = !isExpired;
         const medicine = await Medicine.create({
-            name,
-            imageUrl,
+            name: name || extractedName,
+            imageUrl: imageFile.filename, // Store filename or full URL depending on your setup
             expiryDate,
             quantity,
             type,
             location,
             donatedBy: null,
-            isVerified: false,
+            isVerified,
             donorInfo: { name: donorName, contact: donorContact }
         });
 
         res.status(201).json({ success: true, data: medicine });
-    } catch {
+
+    } catch (err) {
+        console.error(err);
         res.status(500).json({ message: 'Failed to donate medicine' });
     }
 };
