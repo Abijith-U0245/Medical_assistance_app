@@ -1,14 +1,14 @@
-// GFormPopup.jsx (Updated)
 import React, { useState } from 'react';
 import './GFormPopup.css';
+import axios from "axios";
 
-const GFormPopup = ({ onClose }) => {
+const GFormPopup = ({ onClose, ngo }) => {
   const [formData, setFormData] = useState({
-    name: 'Helping Hands Foundation',
-    ngoId: 'NGO-2025-001',
+    name: ngo.organizationname || '',
+    ngoId: ngo.registrationno || '',
     medicine: '',
     quantity: '',
-    location: 'T. Nagar, Chennai',
+    location: ngo.location?.area || '',
   });
 
   const medicineOptions = [
@@ -19,11 +19,30 @@ const GFormPopup = ({ onClose }) => {
     'T. Nagar, Chennai', 'Anna Nagar, Chennai', 'Tambaram, Chennai', 'Velachery, Chennai'
   ];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form Submitted:', formData);
-    onClose();
-  };
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const token = localStorage.getItem("token"); // or however you store JWT
+
+    const response = await axios.post(
+      "http://localhost:5000/api/ngos/request-medicine",
+      formData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log("✅ Request successful:", response.data);
+    alert("Request submitted successfully!");
+  } catch (error) {
+    console.error("❌ Submission failed:", error.response?.data || error.message);
+    alert("Submission failed. Please try again.");
+  }
+};
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,10 +55,10 @@ const GFormPopup = ({ onClose }) => {
         <h2>Request Medicine</h2>
         <form onSubmit={handleSubmit}>
           <label>Name</label>
-          <input name="name" value={formData.name} onChange={handleChange} />
+          <input name="name" value={formData.name} onChange={handleChange} readOnly />
 
           <label>NGO ID</label>
-          <input name="ngoId" value={formData.ngoId} onChange={handleChange} />
+          <input name="ngoId" value={formData.ngoId} onChange={handleChange} readOnly />
 
           <label>Medicine Name</label>
           <select name="medicine" value={formData.medicine} onChange={handleChange} required>
@@ -70,4 +89,3 @@ const GFormPopup = ({ onClose }) => {
 };
 
 export default GFormPopup;
-

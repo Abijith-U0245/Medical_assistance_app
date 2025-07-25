@@ -14,6 +14,7 @@ import HospitalDashboard from "./pages/Dashboards/HospitalDashboard/HospitalDash
 import PharmacyDashboard from "./pages/Dashboards/PharmacyDashboard/PharmacyDashboard.jsx";
 import AdminPanel from "./pages/Dashboards/AdminDashboard/AdminPanel.jsx";
 import NGODashboard from "./pages/Dashboards/NGODashboard/NGODashboard.jsx";
+import ChatbotWidget from "./pages/Dashboards/HomePage/components/ChatbotWidget";
 
 // ✅ Optional: use API base URL from .env
 const API_BASE_URL = import.meta.env.VITE_API_URL;
@@ -36,7 +37,27 @@ function App() {
         <Route path="/dashboard/doctor" element={<DoctorDashboard />} />
         <Route path="/dashboard/hospital" element={<HospitalDashboard />} />
         <Route path="/dashboard/pharmacy" element={<PharmacyDashboard />} />
-        <Route path="/dashboard/ngo" element={<NGODashboard />} />
+        <Route
+  path="/dashboard/ngo"
+  element={
+    <NGODashboard
+      ngo={{
+        organizationname: 'Helping Hands Foundation',
+        registrationno: 'NGO-2025-001',
+        website: 'https://helpinghands.org',
+        cause: 'Medical Aid',
+        donations: 50,
+        location: {
+          area: 'T. Nagar',
+          city: 'Chennai',
+          state: 'Tamil Nadu',
+          country: 'India',
+        },
+      }}
+    />
+  }
+/>
+
         <Route path="/dashboard/admin" element={<AdminPanel />} />
 
         {/* Patient-specific routes */}

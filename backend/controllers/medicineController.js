@@ -1,5 +1,9 @@
 const Medicine = require('../models/medicine');
 const axios = require('axios');
+const path = require('path');
+const fs = require('fs');
+const FormData = require('form-data');
+
 
 exports.getMedicineDashboard = async (req, res) => {
     try {
@@ -178,4 +182,68 @@ exports.deleteMedicine = async (req, res) => {
         console.error(err);
         res.status(500).json({ success: false, message: 'Failed to delete medicine' });
     }
+};
+
+// Public donation without login
+exports.publicMedicineDonation = async (req, res) => {
+  try {
+    const {
+      name,
+      quantity,
+      type,
+      location,
+      donorName,
+      contact,
+    } = req.body;
+
+    if (!req.file) {
+      return res.status(400).json({ success: false, message: 'Image file is required' });
+    }
+
+    const imagePath = req.file.path.replace(/\\/g, '/'); // Fix for Windows paths
+
+    // STEP 1: Send image to AI (Flask OCR) as multipart/form-data
+    const formData = new FormData();
+    formData.append('image', fs.createReadStream(req.file.path));
+
+    const aiRes = await axios.post('http://localhost:5001/extract', formData, {
+      headers: formData.getHeaders(),
+    });
+
+    const expiryDate = aiRes.data?.expiryDate;
+    const detectedName = aiRes.data?.name || name || "Unknown";
+
+    // STEP 2: Reject if expiryDate is missing
+    if (!expiryDate) {
+      return res.status(400).json({ success: false, message: 'AI could not detect expiry date' });
+    }
+
+    // STEP 3: Check expiry validity
+    const expiry = new Date(expiryDate);
+    const now = new Date();
+    if (isNaN(expiry.getTime()) || expiry < now) {
+      return res.status(400).json({ success: false, message: 'Medicine is already expired or invalid expiry date' });
+    }
+
+    // STEP 4: Save to DB if expiry is valid
+    const newMed = await Medicine.create({
+      name: detectedName,
+      imageUrl: imagePath,
+      expiryDate: expiry,
+      quantity,
+      type,
+      location,
+      donorInfo: {
+        name: donorName,
+        contact,
+      },
+      isVerified: false,
+      donatedBy: null,
+    });
+
+    res.status(201).json({ success: true, message: 'Donation submitted', data: newMed });
+  } catch (err) {
+    console.error('Public donation error:', err);
+    res.status(500).json({ success: false, message: 'Failed to submit donation' });
+  }
 };

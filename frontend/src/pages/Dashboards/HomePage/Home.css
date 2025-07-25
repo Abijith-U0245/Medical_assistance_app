@@ -148,3 +148,10 @@ header h1 {
     background-color: #fff;
     color: #000;
 }
+
+.button-group {
+  display: flex;
+  gap: 1rem; /* adds space between buttons */
+  justify-content: center;
+  margin-top: 1rem;
+}

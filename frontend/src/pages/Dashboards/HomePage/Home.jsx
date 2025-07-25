@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import './Home.css';
 
 import RolePopup from './RolePopup';
-import RoleLoginPopup from './LoginPopup'; // renamed import for clarity
+import RoleLoginPopup from './LoginPopup';
 
 import ngoImg from "../../../assets/ngo.jpg";
 import oldPeopleImg from "../../../assets/old_people.jpg.webp";
 import avoidWasteImg from "../../../assets/avoid_medicine_waste.jpg";
+import ChatUI from './components/ChatUI';
+import MedicineDonationForm from './components/MedicineDonationForm';
 
 const cardItems = [
   {
@@ -29,6 +31,8 @@ const cardItems = [
 const Home = () => {
   const [showRolePopup, setShowRolePopup] = useState(false);
   const [selectedRole, setSelectedRole] = useState(null);
+  const [showChat, setShowChat] = useState(false);
+  const [showDonateForm, setShowDonateForm] = useState(false); // ✅ donation form toggle
 
   const handleRoleClick = (role) => {
     setSelectedRole(role);
@@ -47,9 +51,16 @@ const Home = () => {
           Connect unused medicines with NGOs, help the elderly, and prevent waste.
           Our platform ensures every tablet counts, reaching those who need it most — fast, smart, and free.
         </p>
-        <button className="login-btn" onClick={() => setShowRolePopup(true)}>
-          Login / Register
-        </button>
+
+        {/* ✅ Login and Donate buttons */}
+        <div className="button-group">
+  <button className="login-btn" onClick={() => setShowRolePopup(true)}>
+    Login / Register
+  </button>
+  <button className="login-btn" onClick={() => setShowDonateForm(true)}>
+    Donate Medicine
+  </button>
+</div>
       </header>
 
       <main className="card-grid">
@@ -62,9 +73,23 @@ const Home = () => {
         ))}
       </main>
 
-      <div className="chatbot-icon" title="Chat with us">💬</div>
+      {/* ✅ Chatbot Toggle Icon */}
+      <div
+        className="chatbot-icon fixed bottom-5 right-5 text-3xl cursor-pointer"
+        title="Chat with us"
+        onClick={() => setShowChat(!showChat)}
+      >
+        💬
+      </div>
 
-      {/* Role selection modal */}
+      {/* ✅ Chat Popup */}
+      {showChat && (
+        <div className="fixed bottom-20 right-5 z-50">
+          <ChatUI />
+        </div>
+      )}
+
+      {/* ✅ Role Selection Modal */}
       {showRolePopup && (
         <RolePopup
           onSelect={handleRoleClick}
@@ -72,11 +97,18 @@ const Home = () => {
         />
       )}
 
-      {/* Role-specific login/register modal */}
+      {/* ✅ Login Modal */}
       {selectedRole && (
         <RoleLoginPopup
           role={selectedRole}
           onClose={closeLoginPopup}
+        />
+      )}
+
+      {/* ✅ Public Medicine Donation Modal */}
+      {showDonateForm && (
+        <MedicineDonationForm
+          onClose={() => setShowDonateForm(false)}
         />
       )}
     </div>

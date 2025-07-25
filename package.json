@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-  "start": "concurrently \"npm run server\" \"npm run client\"",
-  "server": "cd backend && npm start",
-  "client": "cd frontend && npm start"
-},
+    "start": "concurrently \"npm run server\" \"npm run client\" \"npm run ai\" \"npm run ocr\"",
+    "server": "cd backend && npm start",
+    "client": "cd frontend && npm start",
+    "ai": "cd backend/chatbot && python main.py",
+    "ocr": "cd backend/ocr && python app.py"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Abijith-U0245/Medical_assistance_app.git"
@@ -22,5 +24,8 @@
   "homepage": "https://github.com/Abijith-U0245/Medical_assistance_app#readme",
   "devDependencies": {
     "concurrently": "^9.2.0"
+  },
+  "dependencies": {
+    "form-data": "^4.0.4"
   }
 }

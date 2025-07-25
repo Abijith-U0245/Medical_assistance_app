@@ -21,14 +21,14 @@ exports.registerDoctor = async (req, res) => {
 
 // Get doctor by ID
 exports.getDoctorById = async (req, res) => {
-    try {
-        const doctor = await Doctor.findById(req.params.id).populate('user');
-        if (!doctor) return res.status(404).json({ success: false, message: 'Doctor not found' });
-        res.json({ success: true, data: doctor });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, message: 'Error fetching doctor' });
-    }
+  try {
+    const doctor = await Doctor.findById(req.params.id).populate('user');
+    if (!doctor) return res.status(404).json({ success: false, message: 'Doctor not found' });
+    res.json({ success: true, data: doctor });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: 'Error fetching doctor' });
+  }
 };
 
 // Update doctor

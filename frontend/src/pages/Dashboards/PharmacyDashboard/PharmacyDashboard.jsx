@@ -1,20 +1,64 @@
 import React, { useState } from 'react';
-import './PharmacyDashboard.css'; // Optional: You can style separately
+import './PharmacyDashboard.css';
+import axios from 'axios';
 
 const PharmacyDashboard = () => {
   const [showDonationForm, setShowDonationForm] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    expiryDate: '',
+    cost: '',
+    quantity: '',
+    description: '',
+  });
+  const [image, setImage] = useState(null);
 
-  const handleDonateClick = () => {
-    setShowDonationForm(true);
+  const handleDonateClick = () => setShowDonationForm(true);
+  const handleCancel = () => setShowDonationForm(false);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleCancel = () => {
-    setShowDonationForm(false);
+  const handleImageChange = (e) => {
+    setImage(e.target.files[0]);
   };
+
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  const form = e.target;
+  const formData = new FormData();
+
+  formData.append("name", form.medicineName.value);
+  formData.append("expiryDate", form.expiryDate.value);
+  formData.append("minCost", form.minCost.value);
+  formData.append("quantity", form.quantity.value);
+  formData.append("description", form.description.value);
+  formData.append("image", form.image.files[0]); // ✅ Add the uploaded image
+
+  try {
+    const res = await fetch("http://localhost:5000/api/medicines/donate", {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      alert("✅ Medicine donated successfully");
+      form.reset();
+    } else {
+      alert("❌ Submission failed: " + data.message);
+    }
+  } catch (error) {
+    console.error("Upload Medicine Error:", error);
+    alert("❌ Submission failed. Please try again.");
+  }
+};
 
   return (
     <div className="dashboard-container">
-      {/* Top Profile Bar */}
       <div className="profile-bar">
         <h2>Pharmacy Profile</h2>
         <p>Pharmacy Name: <strong>Arogya Meds</strong></p>
@@ -23,11 +67,8 @@ const PharmacyDashboard = () => {
         <p>Contact: <strong>+91-XXXXXXXXXX</strong></p>
       </div>
 
-      {/* Main Dashboard Section */}
       <div className="main-dashboard">
         <h3>NGO Requests</h3>
-
-        {/* Request List Table */}
         <table className="request-table">
           <thead>
             <tr>
@@ -40,7 +81,6 @@ const PharmacyDashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {/* Sample row - loop through actual data */}
             <tr>
               <td>Helping Hands</td>
               <td>Paracetamol</td>
@@ -55,34 +95,36 @@ const PharmacyDashboard = () => {
           </tbody>
         </table>
 
-        {/* Donate Medicine Section */}
         <div className="donate-section">
           <button onClick={handleDonateClick}>➕ Donate Medicine</button>
         </div>
 
-        {/* Donation Form */}
         {showDonationForm && (
           <div className="donation-form">
             <h4>Donate Medicine</h4>
-            <form>
-              <label>Medicine Name:</label>
-              <input type="text" />
+            <form onSubmit={handleSubmit}>
+  <label>Medicine Name:</label>
+  <input type="text" name="medicineName" required />
 
-              <label>Expiry Date:</label>
-              <input type="date" />
+  <label>Expiry Date:</label>
+  <input type="date" name="expiryDate" required />
 
-              <label>Minimum Cost:</label>
-              <input type="number" />
+  <label>Minimum Cost:</label>
+  <input type="number" name="minCost" required />
 
-              <label>Quantity Available:</label>
-              <input type="number" />
+  <label>Quantity Available:</label>
+  <input type="number" name="quantity" required />
 
-              <label>Description (optional):</label>
-              <textarea />
+  <label>Description (optional):</label>
+  <textarea name="description" />
 
-              <button type="submit">Submit Donation</button>
-              <button type="button" onClick={handleCancel}>Cancel</button>
-            </form>
+  <label>Upload Medicine Image:</label>
+  <input type="file" name="image" accept="image/*" required />
+
+  <button type="submit">Submit Donation</button>
+  <button type="button" onClick={handleCancel}>Cancel</button>
+</form>
+
           </div>
         )}
       </div>

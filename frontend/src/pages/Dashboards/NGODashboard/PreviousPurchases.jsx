@@ -1,4 +1,3 @@
-// PreviousPurchases.jsx
 import React from 'react';
 import './PreviousPurchases.css';
 

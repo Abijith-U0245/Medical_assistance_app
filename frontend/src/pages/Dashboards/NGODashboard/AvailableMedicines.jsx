@@ -1,4 +1,3 @@
-// AvailableMedicines.jsx
 import React from 'react';
 import './AvailableMedicines.css';
 

@@ -36,7 +36,11 @@ function LoginPopup({ role, onClose }) {
           role: userRole
         });
         localStorage.setItem('token', res.data.token);
+        localStorage.setItem('userId', res.data.user._id);  // store for all users
+        localStorage.setItem(`${res.data.user.role}Id`, res.data.user._id); // store doctorId or patientId
+
         window.location.href = `/dashboard/${res.data.user.role}`;
+
 
       }
     } catch (error) {

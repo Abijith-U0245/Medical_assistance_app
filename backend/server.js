@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const connectDB = require('./config/db');
+const path = require('path');
 
 // Load environment variables
 dotenv.config();
@@ -25,6 +26,7 @@ app.use('/api/ngos', require('./routes/ngoRoutes')); // ⬅️ lowercase 'ngos'
 app.use('/api/pharmacies', require('./routes/pharmacyRoutes')); // ⬅️ add pharmacy routes
 app.use('/api/hospitals', require('./routes/hospitalRoutes'))
 app.use('/api/admin', require('./routes/adminRoutes'));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Root route
 app.get('/', (req, res) => {

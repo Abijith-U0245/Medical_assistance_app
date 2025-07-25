@@ -1,9 +1,14 @@
 .patient-dashboard {
     font-family: 'Segoe UI', sans-serif;
-    padding: 2rem;
     background: linear-gradient(to right, #f0f8ff, #e6f0ff);
     min-height: 100vh;
+
+    padding: 2rem 2rem;           /* Top/Bottom, Left/Right padding */
+    margin: 0 auto;               /* Center horizontally */
+    max-width: 1200px;            /* Prevent stretching on large screens */
+    box-sizing: border-box;
 }
+
 
 .header {
     font-size: 2.5rem;

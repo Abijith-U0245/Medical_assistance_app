@@ -1,4 +1,3 @@
-// NGODashboard.jsx
 import React, { useState } from 'react';
 import './NGODashboard.css';
 import PreviousPurchases from './PreviousPurchases';
@@ -26,7 +25,9 @@ const NGODashboard = ({ ngo }) => {
         <p><strong>Website:</strong> <a href={website} target="_blank" rel="noreferrer">{website}</a></p>
         <p><strong>Cause:</strong> {cause}</p>
         <p><strong>Donations:</strong> {donations}</p>
-        <p><strong>Location:</strong> {location.area}, {location.city}, {location.state}, {location.country}</p>
+        <p><strong>Location:</strong> 
+          {location ? `${location.area}, ${location.city}, ${location.state}, ${location.country}` : "N/A"}
+        </p>
       </div>
 
       <PreviousPurchases />
