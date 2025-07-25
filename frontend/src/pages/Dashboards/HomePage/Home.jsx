@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import './Home.css';
+
 import RolePopup from './RolePopup';
-import RoleLoginPopup from './RoleLoginPopup';
+import RoleLoginPopup from './LoginPopup'; // renamed import for clarity
 
 import ngoImg from "../../../assets/ngo.jpg";
 import oldPeopleImg from "../../../assets/old_people.jpg.webp";
@@ -23,7 +24,6 @@ const cardItems = [
     img: avoidWasteImg,
     summary: 'Preventing environmental damage by redistributing unused medicine.',
   },
-  
 ];
 
 const Home = () => {
@@ -33,6 +33,10 @@ const Home = () => {
   const handleRoleClick = (role) => {
     setSelectedRole(role);
     setShowRolePopup(false);
+  };
+
+  const closeLoginPopup = () => {
+    setSelectedRole(null);
   };
 
   return (
@@ -60,12 +64,20 @@ const Home = () => {
 
       <div className="chatbot-icon" title="Chat with us">💬</div>
 
+      {/* Role selection modal */}
       {showRolePopup && (
-        <RolePopup onSelect={handleRoleClick} onClose={() => setShowRolePopup(false)} />
+        <RolePopup
+          onSelect={handleRoleClick}
+          onClose={() => setShowRolePopup(false)}
+        />
       )}
 
+      {/* Role-specific login/register modal */}
       {selectedRole && (
-        <RoleLoginPopup role={selectedRole} onClose={() => setSelectedRole(null)} />
+        <RoleLoginPopup
+          role={selectedRole}
+          onClose={closeLoginPopup}
+        />
       )}
     </div>
   );
