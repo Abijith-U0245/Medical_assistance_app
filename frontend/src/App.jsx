@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import axios from "axios";
 import "./App.css";
 
-// Home and Dashboard
+// Home and Dashboard pages
 import Home from "./pages/Dashboards/HomePage/Home.jsx";
 import PatientDashboard from "./pages/Dashboards/PatientDashboard/PatientDashboard.jsx";
 import BookAppointment from "./pages/Dashboards/PatientDashboard/BookAppointment.jsx";
@@ -14,7 +15,17 @@ import PharmacyDashboard from "./pages/Dashboards/PharmacyDashboard/PharmacyDash
 import AdminPanel from "./pages/Dashboards/AdminDashboard/AdminPanel.jsx";
 import NGODashboard from "./pages/Dashboards/NGODashboard/NGODashboard.jsx";
 
+// ✅ Optional: use API base URL from .env
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+
 function App() {
+  // ✅ Example: test backend connectivity once on load
+  useEffect(() => {
+    axios.get(`${API_BASE_URL}/medicines`)
+      .then(res => console.log("✅ Connected to backend:", res.data))
+      .catch(err => console.error("❌ Backend error:", err));
+  }, []);
+
   return (
     <Router>
       <Routes>
