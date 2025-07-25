@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "frontend",
   "private": true,
   "version": "0.0.0",
@@ -27,5 +28,30 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.3.0",
     "vite": "^7.0.4"
+=======
+  "name": "medical_app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "start": "concurrently \"npm run server\" \"npm run client\"",
+  "server": "cd backend && npm start",
+  "client": "cd frontend && npm start"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abijith-U0245/Medical_assistance_app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Abijith-U0245/Medical_assistance_app/issues"
+  },
+  "homepage": "https://github.com/Abijith-U0245/Medical_assistance_app#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+>>>>>>> f0c5a78709b1275f0d62c14156e8c741cfcf86f8
   }
 }
