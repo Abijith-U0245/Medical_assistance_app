@@ -44,4 +44,31 @@ router.post('/register', async (req, res) => {
   }
 });
 
+// LOGIN
+router.post('/login', async (req, res) => {
+  try {
+    const { email, password, role } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user)
+      return res.status(400).json({ message: 'User not found' });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch)
+      return res.status(400).json({ message: 'Invalid password' });
+
+    if (role && user.role !== role.toLowerCase())
+      return res.status(403).json({ message: 'Role mismatch' });
+
+    const token = jwt.sign({ userId: user._id }, 'your_jwt_secret_key', {
+      expiresIn: '1d',
+    });
+
+    res.json({ token, user });
+  } catch (err) {
+    console.error('Login Error:', err);
+    res.status(500).json({ message: 'Login failed' });
+  }
+});
+
 module.exports = router;

@@ -15,29 +15,32 @@ function LoginPopup({ role, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const userRole = role.toLowerCase();
 
     try {
       if (isSignup) {
-        const res = await axios.post(`${API_URL}/auth/register`, {
+        await axios.post(`${API_URL}/auth/register`, {
           name,
           email,
           phone,
           password,
-          role
+          role: userRole,
         });
         alert('✅ Registered successfully');
         setIsSignup(false);
       } else {
+        // Fix this block in handleSubmit
         const res = await axios.post(`${API_URL}/auth/login`, {
           email,
           password,
-          role
+          role: userRole
         });
         localStorage.setItem('token', res.data.token);
-        window.location.href = `/dashboard/${res.data.user.role.toLowerCase()}`;
+        window.location.href = `/dashboard/${res.data.user.role}`;
+
       }
     } catch (error) {
-      alert(`❌ ${error.response?.data?.message || 'Error occurred'}`);
+      alert(`❌ ${error.response?.data?.message || error.message || 'Unknown error'}`);
     }
   };
 
