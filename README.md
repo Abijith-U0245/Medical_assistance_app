@@ -26,13 +26,11 @@ A smart, responsive web application that leverages AI and geolocation to enable 
 
 | Layer         | Technologies Used                           |
 |---------------|----------------------------------------------|
-| **Frontend**  | HTML, CSS, JavaScript, Bootstrap             |
+| **Frontend**  | HTML, CSS, JavaScript, React             |
 | **Backend**   | Node.js, Express.js                          |
 | **Database**  | MongoDB (Mongoose ODM)                       |
 | **Authentication** | Firebase Authentication                |
-| **AI Module** | Python (Flask or TensorFlow if used)         |
-| **APIs**      | Google Maps API, Custom Health APIs          |
-
+| **AI Module** | Python (Flask                      )         |
 ---
 
 ## 📦 Installation
@@ -131,7 +129,6 @@ http://localhost:5000
 This project can be deployed on:
 - 🔥 **Firebase Hosting**
 - ☁️ **Render** (Node.js backend)
--      
 
 Firebase example:
 ```
@@ -172,5 +169,5 @@ This project is licensed under the MIT License.
 
 ## ❤️ Credits
 
-Made with passion by **Abijith U**  
+Made with passion by **Abijith U,Prannav VG,Swarnabala k,Mahathi**  
 Designed to bring technological solutions to life-saving causes.
