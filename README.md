@@ -65,39 +65,70 @@ http://localhost:5000
 ---
 
 ## 📸 Screenshots
-### 🏥 **Pharmacy Dashboard**
+### 🏥 **Login Page**
 
-<img src="./screenshots/pharmacy-dashboard.jpg" width="800"/>
+<img src="https://github.com/Abijith-U0245/Medical_assistance_app/blob/main/IMG-20250726-WA0012.jpg"/>
 
-### 💊 **Donate Medicine Form**
+### 💊 **Chat Bot**
 
-<img src="./screenshots/donate-medicine.jpg" width="800"/>
+<img src="https://github.com/Abijith-U0245/Medical_assistance_app/blob/main/IMG-20250726-WA0013.jpg"/>
 
-### 👤 **Patient Dashboard**
+### 👤 **Donate Form**
 
-<img src="./screenshots/patient-dashboard.jpg" width="800"/>
+<img src="https://github.com/Abijith-U0245/Medical_assistance_app/blob/main/IMG-20250726-WA0014.jpg"/>
 
-### 🩺 **Book Appointment**
+### 🩺 **Role-Wise Login**
 
-<img src="./screenshots/book-appointment.jpg" width="800"/>
+<img src="https://github.com/Abijith-U0245/Medical_assistance_app/blob/main/IMG-20250726-WA0019.jpg"/>
 
-### 🎯 **Upcoming Events**
+### 🎯 **Admin Dashboard**
 
-<img src="./screenshots/events.jpg" width="800"/>
+<img src="https://github.com/Abijith-U0245/Medical_assistance_app/blob/main/IMG-20250726-WA0020.jpg"/>
 
-### 🧑‍⚕️ **Nearby Doctors**
+### 🧑‍⚕️ **Ngo Page**
 
-<img src="./screenshots/nearby-doctors.jpg" width="800"/>
+<img src="https://github.com/Abijith-U0245/Medical_assistance_app/blob/main/IMG-20250726-WA0021.jpg"/>
 
-### 👨‍⚕️ **Doctor Dashboard**
+### 👨‍⚕️ **Doctor SignIn**
 
-<img src="./screenshots/doctor-dashboard.jpg" width="800"/>
+<img src="https://github.com/Abijith-U0245/Medical_assistance_app/blob/main/IMG-20250726-WA0017.jpg"/>
+
+### 🧑‍⚕️ **Ngo Request Page**
+
+<img src="https://github.com/Abijith-U0245/Medical_assistance_app/blob/main/IMG-20250726-WA0022.jpg"/>
+
+### 👨‍⚕️ **Hospital Dashboard**
+
+<img src="https://github.com/Abijith-U0245/Medical_assistance_app/blob/main/IMG-20250726-WA0023.jpg"/>
+
+### 🧑‍⚕️ **Pharmacy Profile**
+
+<img src="https://github.com/Abijith-U0245/Medical_assistance_app/blob/main/IMG-20250726-WA0025.jpg"/>
+
+### 👨‍⚕️ **Medicine details**
+
+<img src="https://github.com/Abijith-U0245/Medical_assistance_app/blob/main/IMG-20250726-WA0024.jpg"/>
+
+### 👨‍⚕️ **patient Dashboard**
+
+<img src="https://github.com/Abijith-U0245/Medical_assistance_app/blob/main/IMG-20250726-WA0027.jpg"/>
+
+### 🧑‍⚕️ **Doctor Appointment Form**
+
+<img src="https://github.com/Abijith-U0245/Medical_assistance_app/blob/main/IMG-20250726-WA0028.jpg"/>
+
+### 👨‍⚕️ **Upcoming Events**
+
+<img src="https://github.com/Abijith-U0245/Medical_assistance_app/blob/main/IMG-20250726-WA0029.jpg"/>
+
+### 🧑‍⚕️ **Doctor Nearby**
+
+<img src="https://github.com/Abijith-U0245/Medical_assistance_app/blob/main/IMG-20250726-WA0030.jpg"/>
 
 
 ## 🌐 Deployment
 
 This project can be deployed on:
-
 - 🔥 **Firebase Hosting**
 - ☁️ **Render** (Node.js backend)
 -      
