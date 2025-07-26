@@ -1,6 +1,7 @@
 const Hospital = require('../models/hospital');
 const Medicine = require('../models/medicine');
 const Donation = require('../models/Donation');
+const axios = require('axios');
 
 // Create a new hospital
 exports.createHospital = async (req, res) => {
@@ -166,4 +167,21 @@ exports.getReports = async (req, res) => {
     } catch (err) {
         res.status(500).json({ success: false, message: 'Failed to fetch reports' });
     }
+};
+
+
+
+exports.chatWithBot = async (req, res) => {
+  try {
+    const { message } = req.body;
+    if (!message) return res.status(400).json({ error: 'Message is required' });
+
+    // Forward to Flask bot
+    const response = await axios.post('http://localhost:5002/chat', { message });
+
+    res.json({ response: response.data.response });
+  } catch (error) {
+    console.error('Chatbot error:', error.message);
+    res.status(500).json({ response: 'Chatbot service unavailable' });
+  }
 };

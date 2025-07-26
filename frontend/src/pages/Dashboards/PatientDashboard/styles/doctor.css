@@ -1,84 +1,144 @@
 .nearby-doctors-container {
-    padding: 2rem;
-    font-family: 'Segoe UI', sans-serif;
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom, #f0f8ff, #e6f0ff);
+  min-height: 100vh;
 }
 
 h2 {
-    text-transform: capitalize;
-    margin-bottom: 1rem;
-    color: #333;
+  text-transform: capitalize;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 2.2rem;
+  color: #003366;
 }
 
+/* Filters */
 .filters {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
 }
 
 .filters select {
-    padding: 0.5rem;
-    border-radius: 6px;
-    border: 1px solid #aaa;
-    font-size: 1rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  border: 2px solid #007BFF;
+  font-size: 1rem;
+  background-color: #fff;
+  color: #007BFF;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
+.filters select:focus {
+  outline: none;
+  border-color: #0056b3;
+}
+
+/* Doctor List */
+/* Horizontal doctor card layout */
 .doctor-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
 }
 
+/* Horizontal card style */
 .doctor-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 2px solid #ddd;
-    border-radius: 12px;
-    padding: 1.2rem;
-    background-color: #fdfdfd;
-    transition: 0.3s;
+  flex: 0 1 420px; /* You can adjust width */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #ffffff;
+  border-radius: 1.2rem;
+  padding: 1.5rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-left: 6px solid #007BFF;
+  min-height: 160px;
 }
 
 .doctor-card:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.12);
 }
 
-.doctor-info {
-    flex: 1;
+/* Doctor Info */
+.doctor-info h3 {
+  font-size: 1.3rem;
+  color: #222;
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
 }
 
-.book-now-button {
-    background-color: #28a745;
-    color: white;
-    padding: 0.6rem 1.2rem;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.doctor-info p {
+  font-size: 0.95rem;
+  margin: 0.3rem 0;
+  color: #555;
 }
 
-.book-now-button:hover {
-    background-color: #218838;
-}
-
+/* Availability */
 .availability {
-    margin-top: 0.5rem;
-    font-size: 0.95rem;
+  margin-top: 0.8rem;
+  font-weight: 500;
+  font-size: 0.95rem;
 }
 
 .circle {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    margin-right: 6px;
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 6px;
 }
 
 .available {
-    background-color: green;
+  background-color: #28a745;
 }
 
 .not-available {
-    background-color: red;
+  background-color: #dc3545;
+}
+
+/* Book Now Button */
+.book-now-button {
+  margin-top: 1rem;
+  align-self: flex-end;
+  background: linear-gradient(to right, #28a745, #218838);
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 999px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.book-now-button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(to right, #218838, #19692c);
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .filters {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .filters select {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .book-now-button {
+    width: 100%;
+    text-align: center;
+  }
 }

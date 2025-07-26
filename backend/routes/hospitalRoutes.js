@@ -10,7 +10,7 @@ router.get('/donations', HospitalController.getDonationRecords);
 router.get('/pickups', HospitalController.getPickupSchedule);
 router.get('/flagged', HospitalController.getFlaggedStock);
 router.get('/reports',  HospitalController.getReports);
-
+router.post('/chat', HospitalController.chatWithBot);
 // CRUD for hospitals
 router.post('/', HospitalController.createHospital);
 router.get('/', HospitalController.getAllHospitals);

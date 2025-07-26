@@ -5,119 +5,156 @@ const Feedback = require('../models/feedback');
 
 // 1. Overview: all activities
 exports.getOverview = async (req, res) => {
-    try {
-        const totalMedicines = await Medicine.countDocuments();
-        const flaggedDonations = await Medicine.find({ aiFlagged: true });
-        const totalUsers = await User.countDocuments();
-        const totalNGOs = await NGO.countDocuments();
+  try {
+    const totalMedicines = await Medicine.countDocuments();
+    const flaggedDonations = await Medicine.find({ aiFlagged: true });
+    const totalUsers = await User.countDocuments();
+    const totalNGOs = await NGO.countDocuments();
 
-        res.json({
-            success: true,
-            data: {
-                totalMedicines,
-                totalUsers,
-                totalNGOs,
-                flaggedDonations
-            }
-        });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ success: false, message: 'Failed to fetch overview' });
-    }
+    res.json({
+      success: true,
+      data: {
+        totalMedicines,
+        totalUsers,
+        totalNGOs,
+        flaggedDonations
+      }
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Failed to fetch overview' });
+  }
 };
 
 // 2. Manage users
 exports.getAllUsers = async (req, res) => {
-    try {
-        const users = await User.find();
-        res.json({ success: true, data: users });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ success: false, message: 'Failed to fetch users' });
-    }
+  try {
+    const users = await User.find();
+    res.json({ success: true, data: users });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Failed to fetch users' });
+  }
 };
 
 exports.toggleUserAccess = async (req, res) => {
-    try {
-        const { userId } = req.params;
-        const user = await User.findById(userId);
-        if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+  try {
+    const { userId } = req.params;
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ success: false, message: 'User not found' });
 
-        user.isActive = !user.isActive;
-        await user.save();
+    user.isActive = !user.isActive;
+    await user.save();
 
-        res.json({ success: true, message: `User ${user.isActive ? 'enabled' : 'disabled'}` });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ success: false, message: 'Failed to toggle user access' });
-    }
+    res.json({ success: true, message: `User ${user.isActive ? 'enabled' : 'disabled'}` });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Failed to toggle user access' });
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    await User.findByIdAndDelete(userId);
+    res.json({ success: true, message: 'User deleted successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Failed to delete user' });
+  }
 };
 
 // 3. AI flagged donations
 exports.getAIFlaggedDonations = async (req, res) => {
-    try {
-        const flagged = await Medicine.find({ aiFlagged: true });
-        res.json({ success: true, data: flagged });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ success: false, message: 'Failed to fetch AI flagged donations' });
-    }
+  try {
+    const flagged = await Medicine.find({ aiFlagged: true });
+    res.json({ success: true, data: flagged });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Failed to fetch AI flagged donations' });
+  }
 };
 
 // 4. Approval Queue (NGO approvals)
 exports.getApprovalQueue = async (req, res) => {
-    try {
-        const pendingNGOs = await NGO.find({ approved: false });
-        res.json({ success: true, data: pendingNGOs });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ success: false, message: 'Failed to fetch approval queue' });
-    }
+  try {
+    const pendingNGOs = await NGO.find({ approved: false });
+    res.json({ success: true, data: pendingNGOs });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Failed to fetch approval queue' });
+  }
 };
 
 exports.approveNGO = async (req, res) => {
-    try {
-        const ngo = await NGO.findById(req.params.ngoId);
-        if (!ngo) return res.status(404).json({ success: false, message: 'NGO not found' });
+  try {
+    const ngo = await NGO.findById(req.params.ngoId);
+    if (!ngo) return res.status(404).json({ success: false, message: 'NGO not found' });
 
-        ngo.approved = true;
-        await ngo.save();
+    ngo.approved = true;
+    await ngo.save();
 
-        res.json({ success: true, message: 'NGO approved' });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ success: false, message: 'Failed to approve NGO' });
-    }
+    res.json({ success: true, message: 'NGO approved' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Failed to approve NGO' });
+  }
 };
 
-// 5. Analytics (monthly stats)
+// 5. Analytics
 exports.getAnalytics = async (req, res) => {
-    try {
-        const totalMedicines = await Medicine.countDocuments();
-        const rejectedDonations = await Medicine.find({ rejected: true }).countDocuments();
-        const verifiedDeliveries = await Medicine.find({ isVerified: true }).countDocuments();
+  try {
+    const totalMedicines = await Medicine.countDocuments();
+    const rejectedDonations = await Medicine.countDocuments({ rejected: true });
+    const verifiedDeliveries = await Medicine.countDocuments({ isVerified: true });
 
-        res.json({
-            success: true,
-            data: {
-                totalMedicines,
-                rejectedDonations,
-                verifiedDeliveries
-            }
-        });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ success: false, message: 'Failed to fetch analytics' });
-    }
+    res.json({
+      success: true,
+      data: {
+        totalMedicines,
+        rejectedDonations,
+        verifiedDeliveries
+      }
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Failed to fetch analytics' });
+  }
 };
 
-// 6. Feedback and issues
+// 6. Feedback
 exports.getAllFeedback = async (req, res) => {
-    try {
-        const feedbacks = await Feedback.find();
-        res.json({ success: true, data: feedbacks });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ success: false, message: 'Failed to fetch feedback' });
-    }
+  try {
+    const feedbacks = await Feedback.find();
+    res.json({ success: true, data: feedbacks });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Failed to fetch feedback' });
+  }
+};
+
+exports.resolveFeedback = async (req, res) => {
+  try {
+    const { feedbackId } = req.params;
+    const feedback = await Feedback.findById(feedbackId);
+    if (!feedback) return res.status(404).json({ success: false, message: 'Feedback not found' });
+
+    feedback.resolved = true;
+    await feedback.save();
+
+    res.json({ success: true, message: 'Feedback marked as resolved' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Failed to resolve feedback' });
+  }
+};
+
+exports.deleteFeedback = async (req, res) => {
+  try {
+    await Feedback.findByIdAndDelete(req.params.feedbackId);
+    res.json({ success: true, message: 'Feedback deleted' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: 'Failed to delete feedback' });
+  }
 };

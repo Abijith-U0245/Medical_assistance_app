@@ -1,25 +1,31 @@
 const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController');
+const isAdmin = require('../middleware/isAdmin');
+const { protect } = require('../middleware/authMiddleware');
+
 
 // Overview
-router.get('/overview', adminController.getOverview);
+router.get('/overview', protect, isAdmin, adminController.getOverview);
 
 // User Management
-router.get('/users', adminController.getAllUsers);
-router.patch('/users/:userId/toggle-access', adminController.toggleUserAccess);
+router.get('/users', protect, isAdmin, adminController.getAllUsers);
+router.patch('/users/:userId/toggle-access', protect, isAdmin, adminController.toggleUserAccess);
+router.delete('/users/:userId', protect, isAdmin, adminController.deleteUser);
 
-// AI flagged donations
-router.get('/ai-flagged-donations', adminController.getAIFlaggedDonations);
+// AI Flagged Donations
+router.get('/ai-flagged-donations', protect, isAdmin, adminController.getAIFlaggedDonations);
 
-// NGO Approval Queue
-router.get('/approval-queue', adminController.getApprovalQueue);
-router.post('/approve-ngo/:ngoId', adminController.approveNGO);
+// NGO Approvals
+router.get('/approval-queue', protect, isAdmin, adminController.getApprovalQueue);
+router.post('/approve-ngo/:ngoId', protect, isAdmin, adminController.approveNGO);
 
 // Analytics
-router.get('/analytics', adminController.getAnalytics);
+router.get('/analytics', protect, isAdmin, adminController.getAnalytics);
 
 // Feedback
-router.get('/feedbacks', adminController.getAllFeedback);
+router.get('/feedbacks', protect, isAdmin, adminController.getAllFeedback);
+router.patch('/feedbacks/:feedbackId/resolve', protect, isAdmin, adminController.resolveFeedback);
+router.delete('/feedbacks/:feedbackId', protect, isAdmin, adminController.deleteFeedback);
 
 module.exports = router;
